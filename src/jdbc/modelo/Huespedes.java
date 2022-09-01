@@ -3,23 +3,46 @@ package jdbc.modelo;
 import java.sql.Date;
 
 public class Huespedes {
+	private Integer Id;
 	private String Nombre;
 	private String Apellido;
-	private String Nacionalidad;
 	private Date FechaNacimiento;
+	private String Nacionalidad;
 	private String Telefono;
 	private Integer IdReserva;
 	
-	public Huespedes(String nombre, String apellido, String nacionalidad, Date fechaNacimiento, String telefono,
+	public Huespedes(String nombre, String apellido,  Date fechaNacimiento, String nacionalidad, String telefono,
 			Integer idReserva) {
 		super();
 		Nombre = nombre;
 		Apellido = apellido;
-		Nacionalidad = nacionalidad;
 		FechaNacimiento = fechaNacimiento;
+		Nacionalidad = nacionalidad;
 		Telefono = telefono;
 		IdReserva = idReserva;
 	}
+	
+	public Huespedes(Integer id, String nombre, String apellido, Date fechaNacimiento, String nacionalidad,
+			String telefono, Integer idReserva) {
+		super();
+		Id = id;
+		Nombre = nombre;
+		Apellido = apellido;
+		FechaNacimiento = fechaNacimiento;
+		Nacionalidad = nacionalidad;
+		Telefono = telefono;
+		IdReserva = idReserva;
+	}
+
+
+	public Integer getId() {
+		return Id;
+	}
+
+	public void setId(Integer id) {
+		Id = id;
+	}
+
 
 	public String getNombre() {
 		return Nombre;

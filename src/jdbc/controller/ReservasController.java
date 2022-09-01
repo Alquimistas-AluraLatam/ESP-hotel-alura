@@ -1,7 +1,7 @@
 package jdbc.controller;
 
 import java.sql.Connection;
-
+import java.util.List;
 import jdb.factory.ConnectionFactory;
 import jdbc.dao.ReservaDAO;
 import jdbc.modelo.Reserva;
@@ -16,5 +16,9 @@ public class ReservasController {
  
 	public void salvar(Reserva reserva) {
 		this.reservaDAO.salvar(reserva);
+	}
+	
+	public List<Reserva> listar() {
+		return this.reservaDAO.listar();
 	}
 }
