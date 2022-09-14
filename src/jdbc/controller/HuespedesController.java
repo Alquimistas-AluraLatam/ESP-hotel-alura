@@ -21,4 +21,12 @@ public class HuespedesController {
 		public List<Huespedes> listarHuespedes() {
 			return this.huespedDAO.listarHuespedes();
 		}
+		
+		public List<Huespedes> listarHuespedesId(String id) {
+			return this.huespedDAO.buscarId(id);
+		}
+		
+		public void Eliminar(Integer id) {
+			this.huespedDAO.Eliminar(id);
+		}
 }

@@ -107,6 +107,7 @@ public class MenuUsuario extends JFrame {
 		btnRegistro.setBackground(new Color(12, 138, 199));
 		panelMenu.add(btnRegistro);
 		btnRegistro.setLayout(null);
+		btnRegistro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		
 		labelRegistro = new JLabel("Registro de reservas");
 		labelRegistro.setIcon(new ImageIcon(MenuUsuario.class.getResource("/imagenes/reservado.png")));
@@ -116,15 +117,15 @@ public class MenuUsuario extends JFrame {
 		labelRegistro.setHorizontalAlignment(SwingConstants.LEFT);
 		btnRegistro.add(labelRegistro);
 		
-		JPanel btnBusqueda = new JPanel();
-		btnBusqueda.addMouseListener(new MouseAdapter() {
+		JPanel btnBuscar = new JPanel();
+		btnBuscar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnBusqueda.setBackground(new Color(118, 187, 223));				
+				btnBuscar.setBackground(new Color(118, 187, 223));				
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnBusqueda.setBackground(new Color(12, 138, 199));	
+				btnBuscar.setBackground(new Color(12, 138, 199));	
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -133,10 +134,11 @@ public class MenuUsuario extends JFrame {
 				dispose();
 			}
 		});
-		btnBusqueda.setBounds(0, 312, 257, 56);
-		btnBusqueda.setBackground(new Color(12, 138, 199));
-		panelMenu.add(btnBusqueda);
-		btnBusqueda.setLayout(null);
+		btnBuscar.setBounds(0, 312, 257, 56);
+		btnBuscar.setBackground(new Color(12, 138, 199));
+		panelMenu.add(btnBuscar);
+		btnBuscar.setLayout(null);
+		btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		
 		JLabel lblBusquedaDeReservas = new JLabel("Búsqueda");
 		lblBusquedaDeReservas.setIcon(new ImageIcon(MenuUsuario.class.getResource("/imagenes/pessoas.png")));
@@ -144,7 +146,7 @@ public class MenuUsuario extends JFrame {
 		lblBusquedaDeReservas.setHorizontalAlignment(SwingConstants.LEFT);
 		lblBusquedaDeReservas.setForeground(Color.WHITE);
 		lblBusquedaDeReservas.setFont(new Font("Roboto", Font.PLAIN, 18));
-		btnBusqueda.add(lblBusquedaDeReservas);
+		btnBuscar.add(lblBusquedaDeReservas);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(26, 219, 201, 2);

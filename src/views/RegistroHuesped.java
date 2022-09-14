@@ -10,6 +10,7 @@ import com.toedter.calendar.JDateChooser;
 
 import jdbc.controller.HuespedesController;
 import jdbc.controller.ReservasController;
+import jdbc.dao.ReservaDAO;
 import jdbc.modelo.Huespedes;
 import jdbc.modelo.Reserva;
 
@@ -26,6 +27,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.text.Format;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
@@ -45,8 +47,8 @@ public class RegistroHuesped extends JFrame {
 	private ReservasController reservasController;
 	private JLabel labelExit;
 	private JLabel labelAtras;
-	private JLabel labelGuardar;
 	int xMouse, yMouse;
+	int id;
 
 	/**
 	 * Launch the application.
@@ -82,6 +84,7 @@ public class RegistroHuesped extends JFrame {
 		setLocationRelativeTo(null);
 		setUndecorated(true);
 		contentPane.setLayout(null);
+		
 		
 		JPanel header = new JPanel();
 		header.setLayout(null);
@@ -209,6 +212,8 @@ public class RegistroHuesped extends JFrame {
 		txtNreserva.setBackground(Color.WHITE);
 		txtNreserva.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		contentPane.add(txtNreserva);
+			
+		txtNreserva.setText("");
 		
 		JSeparator separator_1_2 = new JSeparator();
 		separator_1_2.setBounds(560, 170, 289, 2);
@@ -314,6 +319,7 @@ public class RegistroHuesped extends JFrame {
 		labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
 	}
 	
+
 	private void guardarHuesped() {
 		
 			if (txtFechaN.getDate() != null && !txtNombre.equals("") && !txtApellido.equals("") && !txtTelefono.equals("")) {		
@@ -329,15 +335,15 @@ public class RegistroHuesped extends JFrame {
 			}									
 	}
 	private void guardarReserva() {	
-//		try {
-			guardarHuesped();
+		try {
 			String fechaE = ((JTextField)ReservasView.txtFechaE.getDateEditor().getUiComponent()).getText();
 			String fechaS = ((JTextField)ReservasView.txtFechaS.getDateEditor().getUiComponent()).getText();			
 			Reserva reserva = new Reserva(java.sql.Date.valueOf(fechaE), java.sql.Date.valueOf(fechaS), ReservasView.txtValor.getText(), ReservasView.txtFormaPago.getSelectedItem().toString());
-			this.reservasController.salvar(reserva);				
-//		} catch (Exception e) {
-//			JOptionPane.showMessageDialog(contentPane, "Error: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-//		}
-//										
+			this.reservasController.salvar(reserva);
+			guardarHuesped();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(contentPane, "Error: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+										
 	}
 }

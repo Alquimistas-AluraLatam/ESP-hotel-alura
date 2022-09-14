@@ -1,6 +1,7 @@
 package jdbc.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -42,7 +43,7 @@ public class ReservaDAO {
 
 	}
 	
-	public List<Reserva> listar() {
+	public List<Reserva> buscar() {
 		List<Reserva> reservas = new ArrayList<Reserva>();
 		try {
 			String sql = "SELECT id, fecha_entrada, fecha_salida, valor, formaPago FROM reservas";
@@ -57,6 +58,54 @@ public class ReservaDAO {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public List<Reserva> buscarId(String id) {
+		List<Reserva> reservas = new ArrayList<Reserva>();
+		try {
+
+			String sql = "SELECT id, fecha_entrada, fecha_salida, valor, formaPago FROM reservas WHERE id = ?";
+
+			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+				pstm.setString(1, id);
+				pstm.execute();
+
+				transformarResultSetEnReserva(reservas, pstm);
+			}
+			return reservas;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public void Eliminar(Integer id) {
+		try (PreparedStatement stm = connection.prepareStatement("DELETE FROM reservas WHERE id = ?")) {
+			stm.setInt(1, id);
+			stm.execute();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public void Actualizar(Date fechaE, Date fechaS, String valor, String formaPago, Integer id) {
+		try (PreparedStatement stm = connection
+				.prepareStatement("UPDATE reservas SET fecha_entrada = ? fecha_salida = ?, valor = ?, formaPago = ? WHERE id = ?")) {
+			stm.setDate(1, fechaE);
+			stm.setDate(2, fechaS);
+			stm.setString(3, valor);
+			stm.setString(4, formaPago);
+			stm.setInt(3, id);
+			stm.execute();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+
+
+//			String sql = "SELECT MAX(id) FROM reservas;";
+
+
+						
 	private void transformarResultSetEnReserva(List<Reserva> reservas, PreparedStatement pstm) throws SQLException {
 		try (ResultSet rst = pstm.getResultSet()) {
 			while (rst.next()) {
@@ -65,9 +114,5 @@ public class ReservaDAO {
 				reservas.add(produto);
 			}
 		}
-	}
-	
-	public void BuscarId() {
-		
 	}
 }

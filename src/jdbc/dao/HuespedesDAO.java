@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jdbc.modelo.Huespedes;
+import jdbc.modelo.Reserva;
 
 
 public class HuespedesDAO {
@@ -51,20 +52,51 @@ private Connection connection;
 			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 				pstm.execute();
 
-				transformarResultSetEnReserva(huespedes, pstm);
+				transformarResultSetEnHuesped(huespedes, pstm);
 			}
 			return huespedes;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
-	private void transformarResultSetEnReserva(List<Huespedes> reservas, PreparedStatement pstm) throws SQLException {
+	
+	public List<Huespedes> buscarId(String id) {
+		List<Huespedes> huespedes = new ArrayList<Huespedes>();
+		try {
+
+			String sql = "SELECT id, nombre, apellido, fecha_nacimiento, nacionalidad, telefono, idReserva FROM huespedes WHERE id = ?";
+
+			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+				pstm.setString(1, id);
+				pstm.execute();
+
+				transformarResultSetEnHuesped(huespedes, pstm);
+			}
+			return huespedes;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public void Eliminar(Integer id) {
+		try (PreparedStatement stm = connection.prepareStatement("DELETE FROM huespedes WHERE id = ?")) {
+			stm.setInt(1, id);
+			stm.execute();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	private void transformarResultSetEnHuesped(List<Huespedes> reservas, PreparedStatement pstm) throws SQLException {
 		try (ResultSet rst = pstm.getResultSet()) {
 			while (rst.next()) {
 				Huespedes huespedes = new Huespedes(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getDate(4), rst.getString(5), rst.getString(6), rst.getInt(7));
 				reservas.add(huespedes);
 			}
-		}
+		}				
 	}
+	
+	
+		
 }
 
