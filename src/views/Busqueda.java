@@ -401,14 +401,13 @@ public class Busqueda extends JFrame {
 		Optional.ofNullable(modelo.getValueAt(tbReservas.getSelectedRow(), tbReservas.getSelectedColumn()))
         .ifPresentOrElse(fila -> {
         	
-			Date fechaE = (Date) modelo.getValueAt(tbReservas.getSelectedRow(), 1);			
-			Date fechaS = (Date) modelo.getValueAt(tbReservas.getSelectedRow(), 2);
+        	Date fechaE = Date.valueOf(modelo.getValueAt(tbReservas.getSelectedRow(), 1).toString());		
+        	Date fechaS = Date.valueOf(modelo.getValueAt(tbReservas.getSelectedRow(), 2).toString());
 			String valor = (String) modelo.getValueAt(tbReservas.getSelectedRow(), 3);
 			String formaPago = (String) modelo.getValueAt(tbReservas.getSelectedRow(), 4);
 			Integer id = Integer.valueOf(modelo.getValueAt(tbReservas.getSelectedRow(), 0).toString());
 			this.reservaController.actualizar(fechaE,fechaS, valor, formaPago, id);
-			JOptionPane.showMessageDialog(this, String.format("modificado con éxito"));
-
+//			this.reservaController.actualizar(java.sql.Date.valueOf(fechaE),java.sql.Date.valueOf(fechaS), valor, formaPago, id);
 		}, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
 		
 	}
