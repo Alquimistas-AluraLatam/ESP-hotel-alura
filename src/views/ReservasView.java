@@ -42,7 +42,6 @@ public class ReservasView extends JFrame {
 	public static JDateChooser txtFechaE;
 	public static JDateChooser txtFechaS;
 	public static JComboBox<Format> txtFormaPago;
-	private ReservasController reservaController;
 	int xMouse, yMouse;
 	private JLabel labelExit;
 	private JLabel lblNewLabel_3; 
@@ -69,7 +68,7 @@ public class ReservasView extends JFrame {
 	 */
 	public ReservasView() {
 		super("Reserva");
-		this.reservaController = new ReservasController();
+
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/imagenes/aH-40px.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 560);

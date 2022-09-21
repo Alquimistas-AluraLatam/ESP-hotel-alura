@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Optional;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import java.awt.Toolkit;
@@ -31,6 +32,8 @@ import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.sql.Date;
+
 import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
@@ -255,7 +258,7 @@ public class Busqueda extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				ActualizarReservas();
 				limpiarTabla();
-				BuscarReservas();
+				LlenarTablaReservas();
 			}
 		});
 		btnEditar.setBounds(635, 508, 122, 35);
@@ -395,17 +398,19 @@ public class Busqueda extends JFrame {
 	}
 	
 	private void ActualizarReservas() {		
-		Object objetoDeLinea = (Object) modelo.getValueAt(tbReservas.getSelectedRow(), tbReservas.getSelectedColumn());
-		if (objetoDeLinea instanceof Integer) {
-			Integer id = (Integer) objetoDeLinea;
-			String fechaE = (String) modelo.getValueAt(tbReservas.getSelectedRow(), 1);			
-			String fechaS = (String) modelo.getValueAt(tbReservas.getSelectedRow(), 2);
+		Optional.ofNullable(modelo.getValueAt(tbReservas.getSelectedRow(), tbReservas.getSelectedColumn()))
+        .ifPresentOrElse(fila -> {
+        	
+			Date fechaE = (Date) modelo.getValueAt(tbReservas.getSelectedRow(), 1);			
+			Date fechaS = (Date) modelo.getValueAt(tbReservas.getSelectedRow(), 2);
 			String valor = (String) modelo.getValueAt(tbReservas.getSelectedRow(), 3);
 			String formaPago = (String) modelo.getValueAt(tbReservas.getSelectedRow(), 4);
-			this.reservaController.actualizar(java.sql.Date.valueOf(fechaE),java.sql.Date.valueOf(fechaS), valor, formaPago, id);
-		} else {
-			JOptionPane.showMessageDialog(this, "Por favor, seleciona un ID");
-		}
+			Integer id = Integer.valueOf(modelo.getValueAt(tbReservas.getSelectedRow(), 0).toString());
+			this.reservaController.actualizar(fechaE,fechaS, valor, formaPago, id);
+			JOptionPane.showMessageDialog(this, String.format("modificado con éxito"));
+
+		}, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
+		
 	}
 	
 	

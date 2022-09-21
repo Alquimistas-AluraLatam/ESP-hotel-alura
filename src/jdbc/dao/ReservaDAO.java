@@ -88,12 +88,12 @@ public class ReservaDAO {
 	
 	public void Actualizar(Date fechaE, Date fechaS, String valor, String formaPago, Integer id) {
 		try (PreparedStatement stm = connection
-				.prepareStatement("UPDATE reservas SET fecha_entrada = ? fecha_salida = ?, valor = ?, formaPago = ? WHERE id = ?")) {
+				.prepareStatement("UPDATE reservas SET fecha_entrada = ?, fecha_salida = ?, valor = ?, formaPago = ? WHERE id = ?")) {
 			stm.setDate(1, fechaE);
 			stm.setDate(2, fechaS);
 			stm.setString(3, valor);
 			stm.setString(4, formaPago);
-			stm.setInt(3, id);
+			stm.setInt(5, id);
 			stm.execute();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
