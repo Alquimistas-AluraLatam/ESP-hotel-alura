@@ -12,6 +12,8 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 import jdbc.controller.ReservasController;
+import jdbc.modelo.Reserva;
+
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -46,6 +48,7 @@ public class ReservasView extends JFrame {
 	private JLabel labelExit;
 	private JLabel lblNewLabel_3; 
 	private JLabel labelAtras;
+	private ReservasController reservasController;
 
 	/**
 	 * Launch the application.
@@ -68,6 +71,7 @@ public class ReservasView extends JFrame {
 	 */
 	public ReservasView() {
 		super("Reserva");
+		this.reservasController = new ReservasController();
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/imagenes/aH-40px.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -306,8 +310,7 @@ public class ReservasView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (ReservasView.txtFechaE.getDate() != null && ReservasView.txtFechaS.getDate() != null) {		
-					RegistroHuesped registro = new RegistroHuesped();
-					registro.setVisible(true);
+					guardarReserva();									
 				} else {
 					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
 				}
@@ -341,6 +344,21 @@ public class ReservasView extends JFrame {
 			}
 			valor = dias * diaria;
 			txtValor.setText("" + valor);
+		}
+	}
+	
+	private void guardarReserva() {	
+		try {
+			String fechaE = ((JTextField)txtFechaE.getDateEditor().getUiComponent()).getText();
+			String fechaS = ((JTextField)txtFechaS.getDateEditor().getUiComponent()).getText();			
+			Reserva reserva = new Reserva(java.sql.Date.valueOf(fechaE), java.sql.Date.valueOf(fechaS), ReservasView.txtValor.getText(), ReservasView.txtFormaPago.getSelectedItem().toString());
+			this.reservasController.salvar(reserva);
+			RegistroHuesped huesped = new RegistroHuesped(reserva.getId());
+			huesped.setVisible(true);
+			dispose();
+			
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(contentPane, "Error: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

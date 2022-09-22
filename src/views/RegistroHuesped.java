@@ -53,7 +53,7 @@ public class RegistroHuesped extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RegistroHuesped frame = new RegistroHuesped();
+					RegistroHuesped frame = new RegistroHuesped(0);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -65,7 +65,7 @@ public class RegistroHuesped extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public RegistroHuesped() {
+	public RegistroHuesped(int idReserva) {
 		this.huespedesController = new HuespedesController();
 		this.reservasController = new ReservasController();
 		
@@ -202,14 +202,19 @@ public class RegistroHuesped extends JFrame {
 		contentPane.add(lblNreserva);
 		
 		txtNreserva = new JTextField();
+		
 		txtNreserva.setFont(new Font("Roboto", Font.PLAIN, 16));
 		txtNreserva.setBounds(560, 495, 285, 33);
 		txtNreserva.setColumns(10);
 		txtNreserva.setBackground(Color.WHITE);
 		txtNreserva.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		txtNreserva.setEditable(false);
+		System.out.println(idReserva);
+		String id = String.valueOf(idReserva);
+		txtNreserva.setText(id);
 		contentPane.add(txtNreserva);
+		
 			
-		txtNreserva.setText("");
 		
 		JSeparator separator_1_2 = new JSeparator();
 		separator_1_2.setBounds(560, 170, 289, 2);
@@ -252,7 +257,7 @@ public class RegistroHuesped extends JFrame {
 		btnguardar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				guardarReserva();
+				guardarHuesped();
 			}
 		});
 		btnguardar.setLayout(null);
@@ -330,16 +335,7 @@ public class RegistroHuesped extends JFrame {
 				JOptionPane.showMessageDialog(this, "Debes llenar todos los campos.");
 			}									
 	}
-	private void guardarReserva() {	
-		try {
-			String fechaE = ((JTextField)ReservasView.txtFechaE.getDateEditor().getUiComponent()).getText();
-			String fechaS = ((JTextField)ReservasView.txtFechaS.getDateEditor().getUiComponent()).getText();			
-			Reserva reserva = new Reserva(java.sql.Date.valueOf(fechaE), java.sql.Date.valueOf(fechaS), ReservasView.txtValor.getText(), ReservasView.txtFormaPago.getSelectedItem().toString());
-			this.reservasController.salvar(reserva);
-			guardarHuesped();
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(contentPane, "Error: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-		}
+	
 										
 	}
-}
+

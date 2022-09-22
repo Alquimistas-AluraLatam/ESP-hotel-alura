@@ -236,9 +236,14 @@ public class Busqueda extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				limpiarTabla();
+				if (txtBuscar.getText().equals("")) {					
+					LlenarTablaHuespedes();
+					LlenarTablaReservas();
+				} else {
 				LlenarTablaReservasId();
 				LlenarTablaHuespedesId();
 			}
+				}
 		});
 		btnbuscar.setLayout(null);
 		btnbuscar.setBackground(new Color(12, 138, 199));
@@ -256,9 +261,21 @@ public class Busqueda extends JFrame {
 		btnEditar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ActualizarReservas();
-				limpiarTabla();
-				LlenarTablaReservas();
+				int filaReservas = tbReservas.getSelectedRow();
+				int filaHuespedes = tbHuespedes.getSelectedRow();
+
+				if (filaReservas >= 0) {
+					ActualizarReservas();
+					limpiarTabla();
+					LlenarTablaReservas();
+					LlenarTablaHuespedes();
+				}
+				else if (filaHuespedes >= 0) {
+					ActualizarHuesped();
+					limpiarTabla();
+					LlenarTablaHuespedes();
+					LlenarTablaReservas();
+				}
 			}
 		});
 		btnEditar.setBounds(635, 508, 122, 35);
@@ -294,10 +311,11 @@ public class Busqueda extends JFrame {
 						JOptionPane.showMessageDialog(contentPane, "Registro Eliminado");
 						limpiarTabla();
 						LlenarTablaReservas();
+						LlenarTablaHuespedes();
 					}
 				}
 
-				 if (filaHuespedes >= 0) {
+				else if (filaHuespedes >= 0) {
 
 					huespedes = tbHuespedes.getValueAt(filaHuespedes, 0).toString();
 					int confirmarh = JOptionPane.showConfirmDialog(null, "¿Desea Eliminar los datos?"); 
@@ -309,6 +327,7 @@ public class Busqueda extends JFrame {
 						JOptionPane.showMessageDialog(contentPane, "Registro Eliminado");
 						limpiarTabla();
 						LlenarTablaHuespedes();
+						LlenarTablaReservas();
 					}
 				}else {
 					JOptionPane.showMessageDialog(null, "Error fila no seleccionada, por favor realice una busqueda y seleccione una fila para eliminar");
@@ -407,8 +426,25 @@ public class Busqueda extends JFrame {
 			String formaPago = (String) modelo.getValueAt(tbReservas.getSelectedRow(), 4);
 			Integer id = Integer.valueOf(modelo.getValueAt(tbReservas.getSelectedRow(), 0).toString());
 			this.reservaController.actualizar(fechaE,fechaS, valor, formaPago, id);
-//			this.reservaController.actualizar(java.sql.Date.valueOf(fechaE),java.sql.Date.valueOf(fechaS), valor, formaPago, id);
-		}, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
+			JOptionPane.showMessageDialog(this, String.format("Registro modificado con éxito"));
+		}, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un registro"));
+		
+	}
+	
+	private void ActualizarHuesped() {		
+		Optional.ofNullable(modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), tbHuespedes.getSelectedColumn()))
+        .ifPresentOrElse(filaHuesped -> {
+        	
+        	String nombre = (String) modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 1);
+        	String apellido = (String) modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 2);
+        	Date fechaN = Date.valueOf(modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 3).toString());
+			String nacionalidad = (String) modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 4);
+			String telefono = (String) modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 5);
+			Integer idReserva = Integer.valueOf(modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 6).toString());
+			Integer id = Integer.valueOf(modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 0).toString());
+			this.huespedesController.actualizar(nombre,apellido,fechaN, nacionalidad, telefono, idReserva, id);
+			JOptionPane.showMessageDialog(this, String.format("Registro modificado con éxito"));
+		}, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un registro"));
 		
 	}
 	

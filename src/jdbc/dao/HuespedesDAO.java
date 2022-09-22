@@ -1,6 +1,7 @@
 package jdbc.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -78,6 +79,21 @@ private Connection connection;
 		}
 	}
 	
+	public void Actualizar(String nombre, String apellido, Date fechaN, String nacionalidad, String telefono, Integer idReserva, Integer id) {
+		try (PreparedStatement stm = connection
+				.prepareStatement("UPDATE huespedes SET nombre = ?, apellido = ?, fecha_nacimiento = ?, nacionalidad = ?, telefono = ?, idReserva = ? WHERE id = ?")) {
+			stm.setString(1, nombre);
+			stm.setString(2, apellido);
+			stm.setDate(3, fechaN);
+			stm.setString(4, nacionalidad);
+			stm.setString(5, telefono);
+			stm.setInt(6, idReserva);
+			stm.setInt(7, id);
+			stm.execute();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	public void Eliminar(Integer id) {
 		try (PreparedStatement stm = connection.prepareStatement("DELETE FROM huespedes WHERE id = ?")) {
 			stm.setInt(1, id);

@@ -99,12 +99,6 @@ public class ReservaDAO {
 			throw new RuntimeException(e);
 		}
 	}
-	
-
-
-//			String sql = "SELECT MAX(id) FROM reservas;";
-
-
 						
 	private void transformarResultSetEnReserva(List<Reserva> reservas, PreparedStatement pstm) throws SQLException {
 		try (ResultSet rst = pstm.getResultSet()) {
