@@ -10,6 +10,7 @@ public class Reserva {
 	private String valor;
 	private String formaPago;
 	
+	
 	public Reserva(Date fechaE, Date fechaS, String valor, String formaPago) {
 		super();		
 		this.fechaE = fechaE;

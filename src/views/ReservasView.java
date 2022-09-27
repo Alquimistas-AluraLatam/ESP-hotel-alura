@@ -154,8 +154,7 @@ public class ReservasView extends JFrame {
 		txtFechaS.setFont(new Font("Roboto", Font.PLAIN, 18));
 		txtFechaS.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
-				calcularValor(txtFechaE,txtFechaS);
-				lblNewLabel_3.setVisible(true);
+				calcularValor(txtFechaE,txtFechaS);				
 			}
 		});
 		txtFechaS.setDateFormatString("yyyy-MM-dd");
@@ -330,29 +329,13 @@ public class ReservasView extends JFrame {
 		btnsiguiente.add(lblSiguiente);
 	}
 
-	private void calcularValor(JDateChooser fechaE,JDateChooser fechaS) {		
-		if(fechaE.getDate() != null && fechaS.getDate() !=null) {
-			Calendar inicio = fechaE.getCalendar();
-			Calendar fin = fechaS.getCalendar();
-			int dias = -1;
-			int diaria = 180;
-			int valor;
-			
-			while(inicio.before(fin)||inicio.equals(fin)) {
-				dias++;
-				inicio.add(Calendar.DATE,1);
-			}
-			valor = dias * diaria;
-			txtValor.setText("" + valor);
-		}
-	}
-	
 	private void guardarReserva() {	
 		try {
 			String fechaE = ((JTextField)txtFechaE.getDateEditor().getUiComponent()).getText();
 			String fechaS = ((JTextField)txtFechaS.getDateEditor().getUiComponent()).getText();			
 			Reserva reserva = new Reserva(java.sql.Date.valueOf(fechaE), java.sql.Date.valueOf(fechaS), ReservasView.txtValor.getText(), ReservasView.txtFormaPago.getSelectedItem().toString());
-			this.reservasController.salvar(reserva);
+			reservasController.guardar(reserva);
+			
 			RegistroHuesped huesped = new RegistroHuesped(reserva.getId());
 			huesped.setVisible(true);
 			dispose();
@@ -361,6 +344,25 @@ public class ReservasView extends JFrame {
 			JOptionPane.showMessageDialog(contentPane, "Error: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	private void calcularValor(JDateChooser fechaE,JDateChooser fechaS) {		
+		if(fechaE.getDate() != null && fechaS.getDate() !=null) {
+			Calendar inicio = fechaE.getCalendar();
+			Calendar fin = fechaS.getCalendar();
+			int dias = -1; // Usamos -1 para contar a partir del dia siguiente
+			int diaria = 180;
+			int valor;
+			
+			while(inicio.before(fin)||inicio.equals(fin)) {
+				dias++;
+				inicio.add(Calendar.DATE,1); //dias a ser aumentados
+			}
+			valor = dias * diaria;
+			txtValor.setText("" + valor);
+		}
+	}
+	
+	
 	
 	 private void headerMousePressed(java.awt.event.MouseEvent evt) {
 	        xMouse = evt.getX();

@@ -18,7 +18,7 @@ public class ReservaDAO {
 		this.connection = connection;
 	}
 	
-	public void salvar(Reserva reserva) {
+	public void guardar(Reserva reserva) {
 		try {
 			String sql = "INSERT INTO reservas (fecha_entrada, fecha_salida, valor, formaPago) VALUES (?, ?, ?, ?)";
 

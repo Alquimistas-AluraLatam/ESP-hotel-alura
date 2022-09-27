@@ -11,12 +11,12 @@ public class ReservasController {
  private ReservaDAO reservaDAO;
  
  public ReservasController() {
-		Connection connection = new ConnectionFactory().recuperarConexao();
+		Connection connection = new ConnectionFactory().recuperarConexion();
 		this.reservaDAO = new ReservaDAO(connection);
 	}
  
-	public void salvar(Reserva reserva) {
-		this.reservaDAO.salvar(reserva);
+	public void guardar(Reserva reserva) {
+		this.reservaDAO.guardar(reserva);
 	}
 		
 	public List<Reserva> buscar() {
