@@ -308,7 +308,7 @@ public class ReservasView extends JFrame {
 		btnsiguiente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (ReservasView.txtFechaE.getDate() != null && ReservasView.txtFechaS.getDate() != null) {		
+				if (txtFechaE.getDate() != null && txtFechaS.getDate() != null) {		
 					guardarReserva();									
 				} else {
 					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
@@ -325,16 +325,18 @@ public class ReservasView extends JFrame {
 		lblSiguiente.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSiguiente.setForeground(Color.WHITE);
 		lblSiguiente.setFont(new Font("Roboto", Font.PLAIN, 18));
-		lblSiguiente.setBounds(0, 0, 122, 35);
+		lblSiguiente.setBounds(0, 0, 112, 35);
 		btnsiguiente.add(lblSiguiente);
 	}
 
 	private void guardarReserva() {	
 		try {
 			String fechaE = ((JTextField)txtFechaE.getDateEditor().getUiComponent()).getText();
-			String fechaS = ((JTextField)txtFechaS.getDateEditor().getUiComponent()).getText();			
-			Reserva reserva = new Reserva(java.sql.Date.valueOf(fechaE), java.sql.Date.valueOf(fechaS), ReservasView.txtValor.getText(), ReservasView.txtFormaPago.getSelectedItem().toString());
+			String fechaS = ((JTextField)txtFechaS.getDateEditor().getUiComponent()).getText();
+			Reserva reserva = new Reserva(java.sql.Date.valueOf(fechaE), java.sql.Date.valueOf(fechaS), txtValor.getText(), txtFormaPago.getSelectedItem().toString());
 			reservasController.guardar(reserva);
+			
+			JOptionPane.showMessageDialog(contentPane, "Registro Guardado, Número de Reserva " + reserva.getId().toString());
 			
 			RegistroHuesped huesped = new RegistroHuesped(reserva.getId());
 			huesped.setVisible(true);
@@ -345,12 +347,17 @@ public class ReservasView extends JFrame {
 		}
 	}
 	
+	
+	
+	
+	
+	
 	private void calcularValor(JDateChooser fechaE,JDateChooser fechaS) {		
 		if(fechaE.getDate() != null && fechaS.getDate() !=null) {
 			Calendar inicio = fechaE.getCalendar();
 			Calendar fin = fechaS.getCalendar();
 			int dias = -1; // Usamos -1 para contar a partir del dia siguiente
-			int diaria = 180;
+			int diaria = 280;
 			int valor;
 			
 			while(inicio.before(fin)||inicio.equals(fin)) {

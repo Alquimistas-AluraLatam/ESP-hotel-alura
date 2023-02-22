@@ -46,7 +46,7 @@ public class ReservaDAO {
 	public List<Reserva> buscar() {
 		List<Reserva> reservas = new ArrayList<Reserva>();
 		try {
-			String sql = "SELECT id, fecha_entrada, fecha_salida, valor, formaPago FROM reservas";
+			String sql = "SELECT id, fecha_entrada, fecha_salida, valor, forma_pago FROM reservas";
 
 			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 				pstm.execute();

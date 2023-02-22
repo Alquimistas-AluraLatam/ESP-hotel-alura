@@ -11,8 +11,7 @@ public class Reserva {
 	private String formaPago;
 	
 	
-	public Reserva(Date fechaE, Date fechaS, String valor, String formaPago) {
-		super();		
+	public Reserva(Date fechaE, Date fechaS, String valor, String formaPago) {		
 		this.fechaE = fechaE;
 		this.fechaS = fechaS;
 		this.valor = valor;

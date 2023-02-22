@@ -1,4 +1,4 @@
-package jdb.factory;
+package jdbc.factory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,6 +16,7 @@ public class ConnectionFactory {
 		comboPooledDataSource.setJdbcUrl("jdbc:mysql://localhost/hotelalura?useTimezone=true&serverTimezone=UTC");
 		comboPooledDataSource.setUser("root");
 		comboPooledDataSource.setPassword("aluraLatam1234");
+		
 
 		this.dataSource = comboPooledDataSource;
 	}
