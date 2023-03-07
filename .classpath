@@ -9,6 +9,6 @@
 	<classpathentry kind="lib" path="C:/Users/Genesys/Documents/BackEnd-Java/LivePT/Jars/c3p0-0.9.5.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Genesys/Documents/BackEnd-Java/LivePT/Jars/jcalendar-1.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Genesys/Documents/BackEnd-Java/LivePT/Jars/mchange-commons-java-0.2.16.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Genesys/Documents/BackEnd-Java/LivePT/Jars/mysql-connector-java-8.0.17.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.29.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

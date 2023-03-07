@@ -1,16 +1,16 @@
 # Challenge ONE | Java | Back-end | Hotel Alura
 
 <p align="center" >
-     <img width="300" heigth="300" src="https://user-images.githubusercontent.com/91544872/189419040-c093db78-c970-4960-8aca-ffcc11f7ffaf.png">
+     <img width="600" heigth="600" src="https://user-images.githubusercontent.com/91544872/189419249-06b539da-7cf2-4d40-a711-618a5c872096.png">
 </p>
 
----
+
 ##  Primeros Pasos:
 
 
 #### 🔹 Marca este proyecto con una ⭐
 #### 🔹 Sigue las orientaciones que tenemos en este repositorio. 📚
-#### 🔹 ¡Visita la página del desafío haciendo clic aquí! [Link do Challenge](https://www.aluracursos.com/challenges/oracle-one-java) 📃
+#### 🔹 ¡Visita la página del desafío haciendo clic aquí! [Link do Challenge](https://www.aluracursos.com/challenges/oracle-one-back-end/hotelalura/hotelalura) 📃
 </br>
 
 ## 🖥️ Tecnologías Utilizadas:
@@ -19,7 +19,9 @@
 - Eclipse
 - Biblioteca JCalendar
 - MySql
-- Plugin WindowBuilder </br>
+- Plugin WindowBuilder
+- Biblioteca C3PO para crear Pool de conexiones
+ </br>
 
 ---
 ## ⚠️ Importante! ⚠️
@@ -223,9 +225,6 @@ Para este reto te proponemos dos tablas: <strong>Reservas</strong> y <strong>Hu�
 <p align="center" >
      <img width="500" heigth="500" src="https://user-images.githubusercontent.com/101413385/169529338-09a4d4c2-1b5a-41dc-b305-38498ebc29a8.png">
 </p>
-<p align="center" >
-     <img width="500" heigth="500" src="https://user-images.githubusercontent.com/91544872/173358015-a252c5cf-48a2-4285-907d-a69239e7c5a5.png">
-</p>
 
 ## 🗔 Plugin WindowBuilder
 
@@ -274,16 +273,16 @@ La pestaña de <em>Design</em> se abrirá por encima de la zona del <em>Console<
 ### ¿Cómo incluir mi proyecto con el "#" del desafío?
 
 1) Ten el <strong>Fork</strong> del proyecto en tu repositorio en Github.
-2) Utilize el topico **#challengeonehotelaluralatam2** </br>
-3) Ve a la pestaña derecha de tu proyecto y haz clic en el engranaje de configuración en la sección <em>About</em>, seleccione el campo **topics** e inserte la etiqueta **challengeonehotelaluralatam2**
+2) Utilize el topico **#challengeonehotelaluralatam4** </br>
+3) Ve a la pestaña derecha de tu proyecto y haz clic en el engranaje de configuración en la sección <em>About</em>, seleccione el campo **topics** e inserte la etiqueta **challengeonehotelaluralatam4**
 
 
 ### ¿Cómo hago la entrega final de mi Proyecto?
 
-4) Rellena el siguiente formulario con tus datos personales, junto con el enlace de tu repositorio. 🔹 [Link para o formulário](https://lp.alura.com.br/alura-latam-lp-entrega-de-challenge-one-esp)
+4) Rellena el siguiente formulario con tus datos personales, junto con el enlace de tu repositorio. 🔹 [Link para o formulário](https://lp.alura.com.br/alura-latam-entrega-challenge-one-esp-back-end)
 
 <p align="center" >
-     <img width="700" heigth="700" src="https://user-images.githubusercontent.com/91544872/189419937-e71f7b5d-9f79-48c3-8806-81f8ba291ca1.png">
+     <img width="700" heigth="700" src="https://user-images.githubusercontent.com/91544872/179625558-4dda7e69-bdaf-4a79-9ca9-82cf8fede9de.png">
 </p>
 
 5) Ve a tu correo electrónico y canjea tu insignia obtenida al completar otro desafío del Proyecto ONE! 🏆

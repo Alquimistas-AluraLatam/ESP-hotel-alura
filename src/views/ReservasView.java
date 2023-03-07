@@ -40,7 +40,6 @@ public class ReservasView extends JFrame {
 	private JLabel labelExit;
 	private JLabel labelAtras;
 	
-	
 	private ReservasController reservasController;
 
 	/**
@@ -110,7 +109,7 @@ public class ReservasView extends JFrame {
 		JLabel lblValor = new JLabel("VALOR DE LA RESERVA");
 		lblValor.setForeground(SystemColor.textInactiveText);
 		lblValor.setBounds(72, 303, 196, 14);
-		lblValor.setFont(new Font("Roboto Black", Font.PLAIN, 18));
+		lblValor.setFont(new Font("Roboto Black", Font.PLAIN, 16));
 		panel.add(lblValor);
 
 		JLabel lblFormaPago = new JLabel("FORMA DE PAGO");
@@ -251,23 +250,22 @@ public class ReservasView extends JFrame {
 		panel.add(txtFechaE);
 						
 		txtFechaS = new JDateChooser();
+		txtFechaS.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				calcularValor(txtFechaE, txtFechaS);
+			}
+		});
 		txtFechaS.getCalendarButton().setIcon(new ImageIcon(ReservasView.class.getResource("/imagenes/icon-reservas.png")));
 		txtFechaS.getCalendarButton().setFont(new Font("Roboto", Font.PLAIN, 11));
 		txtFechaS.setBounds(68, 246, 289, 35);
 		txtFechaS.getCalendarButton().setBounds(267, 1, 21, 31);
 		txtFechaS.setBackground(Color.WHITE);
 		txtFechaS.setFont(new Font("Roboto", Font.PLAIN, 18));
-		txtFechaS.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				calcularValor(txtFechaE,txtFechaS);				
-			}
-		});
 		txtFechaS.setDateFormatString("yyyy-MM-dd");
 		txtFechaS.getCalendarButton().setBackground(SystemColor.textHighlight);
 		txtFechaS.setBorder(new LineBorder(new Color(255, 255, 255), 0));
 		panel.add(txtFechaS);
-		
-			
+					
 		txtValor = new JTextField();
 		txtValor.setBackground(SystemColor.text);
 		txtValor.setHorizontalAlignment(SwingConstants.CENTER);
@@ -292,12 +290,12 @@ public class ReservasView extends JFrame {
 		btnsiguiente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (txtFechaE.getDate() != null && txtFechaS.getDate() != null) {		
-					guardarReserva();									
-				} else {
-					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
+				if((txtFechaE.getDate() != null && txtFechaS.getDate() != null)) {
+					guardarReserva();
+				}else {
+					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos");
 				}
-			}						
+			}
 		});
 		btnsiguiente.setLayout(null);
 		btnsiguiente.setBackground(SystemColor.textHighlight);
@@ -308,30 +306,25 @@ public class ReservasView extends JFrame {
 	}
 	
 	private void guardarReserva() {	
-		try {
-			String fechaE = ((JTextField)txtFechaE.getDateEditor().getUiComponent()).getText();
-			String fechaS = ((JTextField)txtFechaS.getDateEditor().getUiComponent()).getText();
-			Reserva reserva = new Reserva(java.sql.Date.valueOf(fechaE), java.sql.Date.valueOf(fechaS), txtValor.getText(), txtFormaPago.getSelectedItem().toString());
-			reservasController.guardar(reserva);
-			
-			JOptionPane.showMessageDialog(contentPane, "Registro Guardado, Número de Reserva " + reserva.getId().toString());
-			
-			RegistroHuesped huesped = new RegistroHuesped(reserva.getId());
-			huesped.setVisible(true);
-			dispose();
-			
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(contentPane, "Error: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-		}
+		String fechaE = ((JTextField)txtFechaE.getDateEditor().getUiComponent()).getText();
+		String fechaS = ((JTextField)txtFechaS.getDateEditor().getUiComponent()).getText();
+		Reserva nuevaReserva = new Reserva(java.sql.Date.valueOf(fechaE), java.sql.Date.valueOf(fechaS),txtValor.getText(),txtFormaPago.getSelectedItem().toString());
+		reservasController.guardar(nuevaReserva);
+		
+		JOptionPane.showMessageDialog(null,"Registro Guardado con éxito " + nuevaReserva.getId());
+		
+		RegistroHuesped huesped = new RegistroHuesped(nuevaReserva.getId());
+		huesped.setVisible(true);
+		dispose();		
 	}
-	
-				
+		
+		
 	private void calcularValor(JDateChooser fechaE,JDateChooser fechaS) {		
 		if(fechaE.getDate() != null && fechaS.getDate() !=null) {
 			Calendar inicio = fechaE.getCalendar();
 			Calendar fin = fechaS.getCalendar();
 			int dias = -1; // Usamos -1 para contar a partir del dia siguiente
-			int diaria = 280;
+			int diaria = 500;
 			int valor;
 			
 			while(inicio.before(fin)||inicio.equals(fin)) {
@@ -339,7 +332,7 @@ public class ReservasView extends JFrame {
 				inicio.add(Calendar.DATE,1); //dias a ser aumentados
 			}
 			valor = dias * diaria;
-			txtValor.setText("" + valor);
+			txtValor.setText("$" + valor);
 		}
 	}
 	
