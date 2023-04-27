@@ -34,7 +34,7 @@
 Para ayudarte aún más en esta jornada de aprendizaje hemos creado estos videos de solución con las partes estratégicas para la realización de este desafío. Recuerda que esta es solo una de las infinitas formas de llevar a cabo el desafío, aprovechen para estudiar los códigos y también compartan entre ustedes sus resoluciones y opiniones acerca de su proyecto.
 
 - [Realiza una conexión a la base de datos e guarda tus registros](https://www.youtube.com/watch?v=1luEBNCweG4)
-- [Muestra los registros a través de la aplicación]()
+- [Muestra los registros a través de la aplicación](https://youtu.be/8y5fqKVfDWU)
 
 
 ## 📬 Entrega
